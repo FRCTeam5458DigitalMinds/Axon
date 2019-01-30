@@ -5,45 +5,42 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-#include "Robot.h"
-
+#include <Robot.h>
 #include <iostream>
-
 #include <frc/smartdashboard/SmartDashboard.h>
-
-#include "ctre/Phoenix.h"
-
+#include <ctre/Phoenix.h>
+#include <frc/Timer.h>
+#include <frc/drive/DifferentialDrive.h>
 #include <TimedRobot.h>
-
 #include <frc/Joystick.h>
+#include <frc/SpeedControllerGroup.h>
+#include <frc/Talon.h>
 
-//Right Side Motors
-TalonSRX BackRightBack = {15};
-VictorSPX BackRightmid = {14};
-VictorSPX BackRightFront = {13};
-//Left Side Motors
-TalonSRX BackLeftBack = {0};
-VictorSPX BackLeftmid = {1};
-VictorSPX BackLeftFront = {2};
+// Right Side Motors
+TalonSRX BackRightBack{15};
+VictorSPX BackRightmid{14};
+VictorSPX BackRightFront{13};
+// Left Side Motors
+TalonSRX BackLeftBack{0};
+VictorSPX BackLeftmid{1};
+VictorSPX BackLeftFront{2};
 
-frc::Joystick *JoyAccel1, *RaceWheel;
+// Joystick & Racewheel
+frc::Joystick JoyAccel1{0}, RaceWheel{2};
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   
-  //Right Side Motors
+  // Right Side Motors
   BackRightBack.Set(ControlMode::PercentOutput, .2);
   BackRightmid.Set(ControlMode::PercentOutput, .2);
   BackRightFront.Set(ControlMode::PercentOutput, .2);
-  //Left Side Motors
+  // Left Side Motors
   BackLeftBack.Set(ControlMode::PercentOutput, -.1);
   BackLeftmid.Set(ControlMode::PercentOutput, -.1);
   BackLeftFront.Set(ControlMode::PercentOutput, -.1);
-
-  JoyAccel1 = new frc::Joystick(0);
-  RaceWheel = new frc::Joystick(2);
 }
 
 /**
@@ -90,7 +87,10 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  double yInput = JoyAccel1.GetY();
+  double xInput = RaceWheel.GetX();
+}
 
 void Robot::TestPeriodic() {}
 
