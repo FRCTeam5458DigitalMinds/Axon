@@ -13,6 +13,10 @@
 
 #include "ctre/Phoenix.h"
 
+#include <TimedRobot.h>
+
+#include <frc/Joystick.h>
+
 //Right Side Motors
 TalonSRX BackRightBack = {15};
 VictorSPX BackRightmid = {14};
@@ -22,6 +26,7 @@ TalonSRX BackLeftBack = {0};
 VictorSPX BackLeftmid = {1};
 VictorSPX BackLeftFront = {2};
 
+frc::Joystick *JoyAccel1, *RaceWheel;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -29,15 +34,16 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   
   //Right Side Motors
-  BackRightBack.Set(ControlMode::PercentOutput, .1);
-  BackRightmid.Set(ControlMode::PercentOutput, .1);
-  BackRightFront.Set(ControlMode::PercentOutput, .1);
+  BackRightBack.Set(ControlMode::PercentOutput, .2);
+  BackRightmid.Set(ControlMode::PercentOutput, .2);
+  BackRightFront.Set(ControlMode::PercentOutput, .2);
   //Left Side Motors
   BackLeftBack.Set(ControlMode::PercentOutput, -.1);
   BackLeftmid.Set(ControlMode::PercentOutput, -.1);
   BackLeftFront.Set(ControlMode::PercentOutput, -.1);
 
-
+  JoyAccel1 = new frc::Joystick(0);
+  RaceWheel = new frc::Joystick(2);
 }
 
 /**
