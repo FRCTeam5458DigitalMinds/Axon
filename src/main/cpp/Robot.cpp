@@ -90,6 +90,26 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
+
+  // Point turning with button 5
+  if(RaceWheel.GetRawButton(5)){
+    BackRightBack.Set(ControlMode::PercentOutput, xInput);
+    BackRightmid.Set(ControlMode::PercentOutput, xInput);
+    BackRightFront.Set(ControlMode::PercentOutput, xInput);
+    BackLeftBack.Set(ControlMode::PercentOutput, xInput);
+    BackLeftmid.Set(ControlMode::PercentOutput, xInput);
+    BackLeftFront.Set(ControlMode::PercentOutput, xInput);
+  }
+  else 
+  {
+    // Turn off motors if nothing else is happening
+    BackRightBack.Set(ControlMode::PercentOutput, 0);
+    BackRightmid.Set(ControlMode::PercentOutput, 0);
+    BackRightFront.Set(ControlMode::PercentOutput, 0);
+    BackLeftBack.Set(ControlMode::PercentOutput, 0);
+    BackLeftmid.Set(ControlMode::PercentOutput, 0);
+    BackLeftFront.Set(ControlMode::PercentOutput, 0);
+  }
 }
 
 void Robot::TestPeriodic() {}
