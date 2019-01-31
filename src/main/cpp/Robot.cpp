@@ -13,8 +13,6 @@
 #include <frc/drive/DifferentialDrive.h>
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
-#include <frc/SpeedControllerGroup.h>
-#include <frc/Talon.h>
 
 // Right Side Motors
 TalonSRX BackRightBack{15};
@@ -88,29 +86,37 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
+void RightSpeedPercentage(float percentage){
+  BackRightBack.Set(ControlMode::PercentOutput, percentage);
+  BackRightmid.Set(ControlMode::PercentOutput, percentage);
+  BackRightFront.Set(ControlMode::PercentOutput, percentage);
+}
+
+void LeftSpeedPercentage(float percentage){
+  BackLeftBack.Set(ControlMode::PercentOutput, percentage);
+  BackLeftmid.Set(ControlMode::PercentOutput, percentage);
+  BackLeftFront.Set(ControlMode::PercentOutput, percentage);
+}
+
 void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
   // Point turning with button 5
   if(RaceWheel.GetRawButton(5)){
-    BackRightBack.Set(ControlMode::PercentOutput, xInput);
-    BackRightmid.Set(ControlMode::PercentOutput, xInput);
-    BackRightFront.Set(ControlMode::PercentOutput, xInput);
-    BackLeftBack.Set(ControlMode::PercentOutput, xInput);
-    BackLeftmid.Set(ControlMode::PercentOutput, xInput);
-    BackLeftFront.Set(ControlMode::PercentOutput, xInput);
+    RightSpeedPercentage(xInput);
+    LeftSpeedPercentage(xInput);
   }
   else 
   {
     // Turn off motors if nothing else is happening
-    BackRightBack.Set(ControlMode::PercentOutput, 0);
-    BackRightmid.Set(ControlMode::PercentOutput, 0);
-    BackRightFront.Set(ControlMode::PercentOutput, 0);
-    BackLeftBack.Set(ControlMode::PercentOutput, 0);
-    BackLeftmid.Set(ControlMode::PercentOutput, 0);
-    BackLeftFront.Set(ControlMode::PercentOutput, 0);
+    RightSpeedPercentage(0);
+    LeftSpeedPercentage(0);
   }
+
+  /*if(JoyAccel1.GetRawButton(1)){
+    RightSpeedPercentage(yInput)
+  }*/
 }
 
 void Robot::TestPeriodic() {}
