@@ -34,13 +34,14 @@ void Robot::RobotInit() {
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   
   // Right Side Motors
-  BackRightBack.Set(ControlMode::PercentOutput, .2);
+  /*BackRightBack.Set(ControlMode::PercentOutput, .2);
   BackRightmid.Set(ControlMode::PercentOutput, .2);
   BackRightFront.Set(ControlMode::PercentOutput, .2);
   // Left Side Motors
   BackLeftBack.Set(ControlMode::PercentOutput, -.1);
   BackLeftmid.Set(ControlMode::PercentOutput, -.1);
   BackLeftFront.Set(ControlMode::PercentOutput, -.1);
+  */
 }
 
 /**
