@@ -114,6 +114,8 @@ void Robot::TeleopPeriodic() {
   float derivAngle = sumAngle - lastSumAngle;
   float correctionAngle = (sumAngle * 0.1) + (derivAngle * .2);
 
+  float turnFact = 0.9;
+
   // Point turning (BUTTON = 5)
   if(RaceWheel.GetRawButton(5)){
     RightSpeedPercentage(xInput);
@@ -121,9 +123,9 @@ void Robot::TeleopPeriodic() {
   }
   // Drive Forward and Turn
   else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
-    RightSpeedPercentage((-xInput) + 0.5*yInput);
+    RightSpeedPercentage(-yInput + turnFact*(xInput));
     std::cout << (-xInput) + 0.5*yInput << std::endl;
-    LeftSpeedPercentage((xInput) + 0.5*yInput); 
+    LeftSpeedPercentage(yInput + turnFact*(xInput)); 
   }
   // Drive Forward and no Turn
   else if(yInput > 0.06 || yInput < -0.06){
