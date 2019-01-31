@@ -13,6 +13,7 @@
 #include <frc/drive/DifferentialDrive.h>
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
+#include <frc/ADXRS450_Gyro.h>
 
 
 // Right Side Motors
@@ -27,11 +28,17 @@ VictorSPX BackLeftFront{2};
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, RaceWheel{2};
 
+// Gyro
+frc::ADXRS450_Gyro Gyro{}; 
+float lastSumAngle;
+
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
   
+  Gyro.Reset();
+
   // Right Side Motors
   /*BackRightBack.Set(ControlMode::PercentOutput, .2);
   BackRightmid.Set(ControlMode::PercentOutput, .2);
@@ -103,22 +110,34 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  // Point turning with button 5
+  float sumAngle = Gyro.GetAngle();
+  float derivAngle = sumAngle - lastSumAngle;
+  float correctionAngle = (sumAngle * 0.1) + (derivAngle * .2);
+
+  // Point turning (BUTTON = 5)
   if(RaceWheel.GetRawButton(5)){
     RightSpeedPercentage(xInput);
     LeftSpeedPercentage(xInput);
   }
-  // Drive Forward
-  else if(yInput > 0.06 || yInput < -0.06){
-    RightSpeedPercentage(-yInput);
-    LeftSpeedPercentage(yInput);
+  // Drive Forward and Turn
+  else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
+    RightSpeedPercentage(-yInput + 0.9*xInput);
+    LeftSpeedPercentage(yInput + 0.9*xInput); 
   }
-  // Turn off motors if nothing else is happening
+  // Drive Forward and no Turn
+  else if(yInput > 0.06 || yInput < -0.06){
+    RightSpeedPercentage(-yInput - correctionAngle);
+    LeftSpeedPercentage(yInput - correctionAngle); 
+  }
+  // Turn off motors if button (5) not pressed 
   else 
   {
     RightSpeedPercentage(0);
     LeftSpeedPercentage(0);
   }
+
+  lastSumAngle = sumAngle;  
+
 }
 
 void Robot::TestPeriodic() {}
