@@ -125,7 +125,15 @@ void Robot::TeleopPeriodic() {
   else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
     RightSpeedPercentage(yInput + turnFact*(xInput));
     std::cout << (-xInput) + 0.5*yInput << std::endl;
-    LeftSpeedPercentage(yInput + turnFact*(xInput)); 
+    if (xInput > 0.01){
+      RightSpeedPercentage(yInput + turnFact*(xInput));
+      LeftSpeedPercentage(yInput + turnFact*(xInput));
+    }
+    if (xInput < 0.01){
+      RightSpeedPercentage(-yInput + turnFact*(xInput));
+      LeftSpeedPercentage(yInput - turnFact*(xInput));              
+    }
+    LeftSpeedPercentage(yInput + turnFact*(xInput));
   }
   // Drive Forward and no Turn
   else if(yInput > 0.06 || yInput < -0.06){
