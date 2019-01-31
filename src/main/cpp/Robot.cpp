@@ -117,11 +117,12 @@ void Robot::TeleopPeriodic() {
   // Point turning (BUTTON = 5)
   if(RaceWheel.GetRawButton(5)){
     RightSpeedPercentage(xInput);
-    LeftSpeedPercentage(xInput);
+    LeftSpeedPercentage(xInput);  
   }
   // Drive Forward and Turn
   else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
     RightSpeedPercentage(-yInput + 0.9*xInput);
+    std::cout << yInput + 0.9*xInput << std::endl;
     LeftSpeedPercentage(yInput + 0.9*xInput); 
   }
   // Drive Forward and no Turn
