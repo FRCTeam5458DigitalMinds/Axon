@@ -123,7 +123,7 @@ void Robot::TeleopPeriodic() {
   }
   // Drive Forward and Turn
   else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
-    RightSpeedPercentage(-yInput + turnFact*(xInput));
+    RightSpeedPercentage(yInput + turnFact*(xInput));
     std::cout << (-xInput) + 0.5*yInput << std::endl;
     LeftSpeedPercentage(yInput + turnFact*(xInput)); 
   }
