@@ -14,6 +14,7 @@
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
 
+
 // Right Side Motors
 TalonSRX BackRightBack{15};
 VictorSPX BackRightmid{14};
@@ -114,9 +115,15 @@ void Robot::TeleopPeriodic() {
     LeftSpeedPercentage(0);
   }
 
-  /*if(JoyAccel1.GetRawButton(1)){
-    RightSpeedPercentage(yInput)
-  }*/
+  //Drive Forward
+  if(yInput > 0.06 || yInput < -0.06){
+    RightSpeedPercentage(yInput);
+    LeftSpeedPercentage(-yInput);
+  }
+  else{
+    RightSpeedPercentage(0);
+    LeftSpeedPercentage(0);
+  }
 }
 
 void Robot::TestPeriodic() {}
