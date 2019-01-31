@@ -108,19 +108,14 @@ void Robot::TeleopPeriodic() {
     RightSpeedPercentage(xInput);
     LeftSpeedPercentage(xInput);
   }
-  else 
-  {
-    // Turn off motors if nothing else is happening
-    RightSpeedPercentage(0);
-    LeftSpeedPercentage(0);
-  }
-
-  //Drive Forward
-  if(yInput > 0.06 || yInput < -0.06){
+  // Drive Forward
+  else if(yInput > 0.06 || yInput < -0.06){
     RightSpeedPercentage(yInput);
     LeftSpeedPercentage(-yInput);
   }
-  else{
+  // Turn off motors if nothing else is happening
+  else 
+  {
     RightSpeedPercentage(0);
     LeftSpeedPercentage(0);
   }
