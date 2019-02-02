@@ -80,24 +80,26 @@ void Robot::TeleopPeriodic() {
   double xInput = RaceWheel.GetX();
 
   float turnFact = 0.5;
+  float yInputBuffer = 0.06;
+  float xInputBuffer = 0.01;
 
   // Point turning (BUTTON = 5)
-  if(RaceWheel.GetRawButton(5)){
+  if (RaceWheel.GetRawButton(5)){
     RightSpeedPercentage(xInput);
     LeftSpeedPercentage(xInput);  
   }
 
   // Move turning
-  else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
+  else if ((yInput > yInputBuffer || yInput < -yInputBuffer) && (xInput > xInputBuffer || xInput < -xInputBuffer)){
     // If turning right
-    if (xInput > 0.01){
+    if (xInput > xInputBuffer){
       // Drive left at yInput percentage (100% Joystick 0% Wheel)
       LeftSpeedPercentage(yInput);
       // Drive right at yInput - turnFact% of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
       RightSpeedPercentage(yInput - (turnFact*xInput));
     }
     // If turning left
-    else if (xInput < 0.01){
+    else if (xInput < xInputBuffer){
       /// Drive right at yInput percentage (100% Joystick 0% Wheel)
       RightSpeedPercentage(yInput);
       // Drive left at yInput - turnFact of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
@@ -106,11 +108,12 @@ void Robot::TeleopPeriodic() {
   }
 
   // Move forward
-  else if(yInput > 0.06 || yInput < -0.06){
+  else if (yInput > yInputBuffer || yInput < -yInputBuffer){
     RightSpeedPercentage(-yInput);
     LeftSpeedPercentage(yInput); 
   }
-  // Turn off motors if button (5) not pressed 
+
+  // Turn off motors nothing above is happening 
   else 
   {
     RightSpeedPercentage(0);
