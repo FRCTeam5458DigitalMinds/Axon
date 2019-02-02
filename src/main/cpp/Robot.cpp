@@ -46,7 +46,7 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  RightMotors.SetInverted(false);
+  RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
   
   Gyro.Reset();
