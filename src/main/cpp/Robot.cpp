@@ -8,22 +8,23 @@
 #include <Robot.h>
 #include <iostream>
 #include <frc/smartdashboard/SmartDashboard.h>
-#include <ctre/Phoenix.h>
 #include <frc/Timer.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
 #include <frc/ADXRS450_Gyro.h>
+#include <WPILib.h>
+#include <ctre/Phoenix.h>
 
 
 // Right Side Motors
-TalonSRX BackRightBack{15};
-VictorSPX BackRightmid{14};
-VictorSPX BackRightFront{13};
+WPI_TalonSRX BackRightBack{15};
+WPI_VictorSPX BackRightmid{14};
+WPI_VictorSPX BackRightFront{13};
 // Left Side Motors
-TalonSRX BackLeftBack{0};
-VictorSPX BackLeftmid{1};
-VictorSPX BackLeftFront{2};
+WPI_TalonSRX BackLeftBack{0};
+WPI_VictorSPX BackLeftmid{1};
+WPI_VictorSPX BackLeftFront{2};
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, RaceWheel{2};
