@@ -46,7 +46,7 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  RightMotors.SetInverted(true);
+  RightMotors.SetInverted(false);
   LeftMotors.SetInverted(false);
   
   Gyro.Reset();
@@ -79,7 +79,7 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  DriveTrain.ArcadeDrive(-yInput, xInput);
+  DriveTrain.ArcadeDrive(xInput, yInput);
 
   // Point turning 
   if (RaceWheel.GetRawButton(5)){
