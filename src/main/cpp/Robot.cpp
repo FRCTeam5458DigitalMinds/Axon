@@ -77,10 +77,6 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  float turnFact = 0.5;
-  float yInputBuffer = 0.06;
-  float xInputBuffer = 0.01;
-
   DriveTrain.ArcadeDrive(xInput, yInput);
 
   // Point turning 
