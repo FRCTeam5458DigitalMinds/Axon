@@ -10,6 +10,7 @@
 #include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Timer.h>
 #include <frc/drive/DifferentialDrive.h>
+#include <frc/SpeedControllerGroup.h>
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
 #include <frc/ADXRS450_Gyro.h>
@@ -26,29 +27,25 @@ WPI_TalonSRX BackLeftBack{0};
 WPI_VictorSPX BackLeftmid{1};
 WPI_VictorSPX BackLeftFront{2};
 
+frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightmid,BackRightBack};
+frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftmid, BackLeftBack};
+
+frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
+
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, RaceWheel{2};
 
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-/* -+- Drive Functions -+- */
-void RightSpeedPercentage(float percentage){
-  BackRightBack.Set(ControlMode::PercentOutput, percentage);
-  BackRightmid.Set(ControlMode::PercentOutput, percentage);
-  BackRightFront.Set(ControlMode::PercentOutput, percentage);
-}
-void LeftSpeedPercentage(float percentage){
-  BackLeftBack.Set(ControlMode::PercentOutput, percentage);
-  BackLeftmid.Set(ControlMode::PercentOutput, percentage);
-  BackLeftFront.Set(ControlMode::PercentOutput, percentage);
-}
-
 /*Called on robot connection*/
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
+
+  RightMotors.SetInverted(true);
+  LeftMotors.SetInverted(false);
   
   Gyro.Reset();
 }
@@ -84,42 +81,14 @@ void Robot::TeleopPeriodic() {
   float yInputBuffer = 0.06;
   float xInputBuffer = 0.01;
 
-  // Point turning (BUTTON = 5)
+  DriveTrain.ArcadeDrive(xInput, yInput);
+
+  // Point turning 
   if (RaceWheel.GetRawButton(5)){
-    RightSpeedPercentage(xInput);
-    LeftSpeedPercentage(xInput);  
+    RightMotors.Set(xInput);
+    LeftMotors.Set(xInput);  
   }
 
-  // Move turning
-  else if ((yInput > yInputBuffer || yInput < -yInputBuffer) && (xInput > xInputBuffer || xInput < -xInputBuffer)){
-    // If turning right
-    if (xInput > xInputBuffer){
-      // Drive left at yInput percentage (100% Joystick 0% Wheel)
-      LeftSpeedPercentage(yInput);
-      // Drive right at yInput - turnFact% of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
-      RightSpeedPercentage(yInput - (turnFact*xInput));
-    }
-    // If turning left
-    else if (xInput < xInputBuffer){
-      /// Drive right at yInput percentage (100% Joystick 0% Wheel)
-      RightSpeedPercentage(yInput);
-      // Drive left at yInput - turnFact of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
-      LeftSpeedPercentage(yInput - (turnFact*xInput));       
-    }
-  }
-
-  // Move forward
-  else if (yInput > yInputBuffer || yInput < -yInputBuffer){
-    RightSpeedPercentage(-yInput);
-    LeftSpeedPercentage(yInput); 
-  }
-
-  // Turn off motors nothing above is happening 
-  else 
-  {
-    RightSpeedPercentage(0);
-    LeftSpeedPercentage(0);
-  }
 }
 
 /*Called every robot packet in testing mode*/
