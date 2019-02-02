@@ -79,31 +79,33 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  float turnFact = 0.9;
+  float turnFact = 0.5;
 
   // Point turning (BUTTON = 5)
   if(RaceWheel.GetRawButton(5)){
     RightSpeedPercentage(xInput);
     LeftSpeedPercentage(xInput);  
   }
-  // Drive Forward and Turn
+
+  // Move turning
   else if((yInput > 0.06 || yInput < -0.06) && (xInput > 0.01 || xInput < -0.01)){
     // If turning right
     if (xInput > 0.01){
       // Drive left at yInput percentage (100% Joystick 0% Wheel)
       LeftSpeedPercentage(yInput);
-      // Drive right at yInput - half of xInput (100% Joystick, 50% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at half the speed of the left wheels)
-      RightSpeedPercentage(yInput - (0.5*xInput));
+      // Drive right at yInput - turnFact% of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
+      RightSpeedPercentage(yInput - (turnFact*xInput));
     }
     // If turning left
     else if (xInput < 0.01){
       /// Drive right at yInput percentage (100% Joystick 0% Wheel)
       RightSpeedPercentage(yInput);
-      // Drive left at yInput - half of xInput (100% Joystick, 50% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at half the speed of the left wheels)
-      LeftSpeedPercentage(yInput - (0.5*xInput));       
+      // Drive left at yInput - turnFact of xInput (100% Joystick, turnFact% Wheel) (At 100% on both Joystick and Wheel, the right wheels will turn at turnFact the speed of the left wheels)
+      LeftSpeedPercentage(yInput - (turnFact*xInput));       
     }
   }
-  // Drive Forward and no Turn
+
+  // Move forward
   else if(yInput > 0.06 || yInput < -0.06){
     RightSpeedPercentage(-yInput);
     LeftSpeedPercentage(yInput); 
