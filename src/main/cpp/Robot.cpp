@@ -79,7 +79,7 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  DriveTrain.ArcadeDrive(xInput, yInput);
+  DriveTrain.ArcadeDrive(-xInput, yInput);
 
   // Point turning 
   if (RaceWheel.GetRawButton(5)){
