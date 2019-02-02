@@ -27,9 +27,11 @@ WPI_TalonSRX BackLeftBack{0};
 WPI_VictorSPX BackLeftmid{1};
 WPI_VictorSPX BackLeftFront{2};
 
+// Speed Controller Groups
 frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightmid,BackRightBack};
 frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftmid, BackLeftBack};
 
+// Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 
 // Joystick & Racewheel
@@ -77,7 +79,7 @@ void Robot::TeleopPeriodic() {
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
 
-  DriveTrain.ArcadeDrive(xInput, yInput);
+  DriveTrain.ArcadeDrive(-xInput, yInput);
 
   // Point turning 
   if (RaceWheel.GetRawButton(5)){
