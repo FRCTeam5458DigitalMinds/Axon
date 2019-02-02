@@ -8,6 +8,7 @@
 #include <Robot.h>
 #include <iostream>
 #include <frc/smartdashboard/SmartDashboard.h>
+#include <networktables/NetworkTable.h>
 #include <ctre/Phoenix.h>
 #include <frc/Timer.h>
 #include <frc/drive/DifferentialDrive.h>
@@ -30,6 +31,9 @@ frc::Joystick JoyAccel1{0}, RaceWheel{2};
 
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
+
+// Limelight
+std::shared_ptr<NetworkTable> limelight = NetworkTable::GetTable("limelight");
 
 /* -+- Drive Functions -+- */
 void RightSpeedPercentage(float percentage){
