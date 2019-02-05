@@ -1,22 +1,16 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 #include <Robot.h>
+#include <WPILib.h>
 #include <iostream>
-#include <frc/smartdashboard/SmartDashboard.h>
 #include <frc/Timer.h>
-#include <frc/drive/DifferentialDrive.h>
-#include <frc/SpeedControllerGroup.h>
 #include <TimedRobot.h>
 #include <frc/Joystick.h>
-#include <frc/ADXRS450_Gyro.h>
-#include <WPILib.h>
 #include <ctre/Phoenix.h>
+#include <frc/ADXRS450_Gyro.h>
+#include <frc/SpeedControllerGroup.h>
+#include <frc/drive/DifferentialDrive.h>
+#include <frc/smartdashboard/SmartDashboard.h>
 
+//Declarations
 
 // Right Side Motors
 WPI_TalonSRX BackRightBack{15};
