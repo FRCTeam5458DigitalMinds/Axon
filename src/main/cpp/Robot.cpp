@@ -33,18 +33,24 @@ frc::ADXRS450_Gyro Gyro{};
 //Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics
-//Lift
+//Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
 bool SolenoidButton = false;
+
 //HatchLock
-frc:::Solenoid HatchIntake{1};
+
+frc::Solenoid HatchIntake{1};
+
+frc::Solenoid HatchIntake{1};
+
 bool SolenidButton = false;
 
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
+//Straightens out the bot
+float LastSumAngle;
 
 /*Called on robot connection*/
 void Robot::RobotInit() {
@@ -56,7 +62,6 @@ void Robot::RobotInit() {
   LeftMotors.SetInverted(false);
 
   CargoIntake.Set(false);
-  HatchIntake.Set(false);
 
   Gyro.Reset();
 }
@@ -88,6 +93,12 @@ void Robot::TeleopPeriodic() {
   //Gets axis for each controller
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
+
+  //Power get's cut from one side of the bot to straighten out when driving straight
+  float sumAngle = Gyro.GetAngle();
+  float derivAngle = sumAngle - LastSumAngle;
+  float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
+
   
   DriveTrain.ArcadeDrive(-xInput, yInput);
 
@@ -98,15 +109,6 @@ void Robot::TeleopPeriodic() {
       SolenoidButton = true;
     }
   } else {
-    SolenoidButton = false;
-  }
-  //HatchLock
-  if (Xbox.GetRawButton(2)){
-    if(!SolenoidButton){
-      HatchIntake.Set(!HatchIntake.Get());
-      SolenoidButton = true;
-    }
-  } else{
     SolenoidButton = false;
   }
 
@@ -129,6 +131,10 @@ void Robot::TeleopPeriodic() {
     RightMotors.Set(xInput);
     LeftMotors.Set(xInput);  
   }
+  
+  //Straightens out bot here when driving straight
+  LastSumAngle = sumAngle;
+
 }
 
 /*Called every robot packet in testing mode*/
