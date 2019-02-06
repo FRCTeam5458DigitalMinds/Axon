@@ -30,16 +30,16 @@ frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-//   
+//Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics
+//Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
+bool SolenoidButton = false;
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
-bool SolenoidButton = false;
 
 /*Called on robot connection*/
 void Robot::RobotInit() {
@@ -79,9 +79,10 @@ void Robot::TeleopInit() {}
 
 /*Called every robot packet in teleop*/
 void Robot::TeleopPeriodic() {
+  //Gets axis for each controller
   double yInput = JoyAccel1.GetY();
   double xInput = RaceWheel.GetX();
-
+  
   DriveTrain.ArcadeDrive(-xInput, yInput);
 
   // Lift, Solenoid 0
@@ -94,9 +95,16 @@ void Robot::TeleopPeriodic() {
     SolenoidButton = false;
   }
 
-  // Intake Motor
+  // Intake's the ball
   if (Xbox.GetRawButton(3)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
+  } else {
+    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+  }
+  
+  //Spits the ball
+  if (Xbox.GetRawButton(1)){
+    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
   } else {
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
   }
@@ -107,7 +115,7 @@ void Robot::TeleopPeriodic() {
     LeftMotors.Set(xInput);  
   }
 }
-/*mr.poopybutthole*/
+
 /*Called every robot packet in testing mode*/
 void Robot::TestPeriodic() {}
 
