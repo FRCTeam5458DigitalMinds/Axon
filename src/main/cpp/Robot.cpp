@@ -30,21 +30,19 @@ frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-//Cargo Intake
+// Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics
-//Lift
+// Pneumatics
+// Lift
 frc::Solenoid CargoIntake{0};
-bool SolenoidButton = false;
-//HatchLock
+bool CargoButton = false;
+// HatchLock
 frc:::Solenoid HatchIntake{1};
-bool SolenidButton = false;
-
+bool HatchButton = false;
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
-
 
 /*Called on robot connection*/
 void Robot::RobotInit() {
@@ -91,34 +89,30 @@ void Robot::TeleopPeriodic() {
   
   DriveTrain.ArcadeDrive(-xInput, yInput);
 
-  // Lift, Solenoid 0
+  // Lift
   if (Xbox.GetRawButton(5)){
-    if (!SolenoidButton){
+    if (!CargoButton){
       CargoIntake.Set(!CargoIntake.Get());
-      SolenoidButton = true;
+      CargoButton = true;
     }
   } else {
-    SolenoidButton = false;
+    CargoButton = false;
   }
-  //HatchLock
+  // Hatch
   if (Xbox.GetRawButton(2)){
-    if(!SolenoidButton){
+    if(!HatchButton){
       HatchIntake.Set(!HatchIntake.Get());
-      SolenoidButton = true;
+      HatchButton = true;
     }
   } else{
-    SolenoidButton = false;
+    HatchButton = false;
   }
 
-  // Intake's the ball
+  // Intakes the ball
   if (Xbox.GetRawButton(3)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
-  } else {
-    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-  }
-  
-  //Spits the ball
-  if (Xbox.GetRawButton(1)){
+  // Spits the ball
+  } else (Xbox.GetRawButton(1)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
   } else {
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
