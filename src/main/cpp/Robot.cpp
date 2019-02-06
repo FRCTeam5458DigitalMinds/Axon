@@ -3,6 +3,7 @@
 #include <iostream>
 #include <frc/Timer.h>
 #include <TimedRobot.h>
+#include <frc/Solenoid.h>
 #include <frc/Joystick.h>
 #include <ctre/Phoenix.h>
 #include <frc/ADXRS450_Gyro.h>
@@ -14,25 +15,33 @@
 
 // Right Side Motors
 WPI_TalonSRX BackRightBack{15};
-WPI_VictorSPX BackRightmid{14};
+WPI_VictorSPX BackRightMid{14};
 WPI_VictorSPX BackRightFront{13};
 // Left Side Motors
 WPI_TalonSRX BackLeftBack{0};
-WPI_VictorSPX BackLeftmid{1};
+WPI_VictorSPX BackLeftMid{1};
 WPI_VictorSPX BackLeftFront{2};
-
 // Speed Controller Groups
-frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightmid,BackRightBack};
-frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftmid, BackLeftBack};
-
+frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightMid,BackRightBack};
+frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 
-// Joystick & Racewheel
-frc::Joystick JoyAccel1{0}, RaceWheel{2};
-
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
+
+//   
+VictorSPX FrontLeftMid{4};
+
+//Pneumatics
+frc::Solenoid CargoIntake{0};
+
+frc::Solenoid HatchGrabber{1};
+
+// Joystick & Racewheel
+frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
+
+bool SolenoidButton = false;
 
 /*Called on robot connection*/
 void Robot::RobotInit() {
@@ -42,6 +51,9 @@ void Robot::RobotInit() {
 
   RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
+
+  HatchGrabber.Set(false);
+  CargoIntake.Set(false);
   
   Gyro.Reset();
 }
@@ -75,14 +87,28 @@ void Robot::TeleopPeriodic() {
 
   DriveTrain.ArcadeDrive(-xInput, yInput);
 
+  // Lift, Solenoid 0
+  if (Xbox.GetRawButton(5)){
+    if (!SolenoidButton){
+      HatchGrabber.Set(!HatchGrabber.Get());
+      SolenoidButton = true;
+    }
+  } else {
+    SolenoidButton = false;
+  }
+
+  // Intake Motor
+  if (Xbox.GetRawButton(3)){
+    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, .5);
+  }
+
   // Point turning 
   if (RaceWheel.GetRawButton(5)){
     RightMotors.Set(xInput);
     LeftMotors.Set(xInput);  
   }
-
 }
-
+/*mr.poopybutthole*/
 /*Called every robot packet in testing mode*/
 void Robot::TestPeriodic() {}
 
