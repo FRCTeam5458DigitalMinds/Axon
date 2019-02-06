@@ -8,6 +8,7 @@
 #include <ctre/Phoenix.h>
 #include <frc/ADXRS450_Gyro.h>
 #include <frc/SpeedControllerGroup.h>
+#include <NetworkTables/NetworkTable.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
@@ -35,19 +36,17 @@ VictorSPX FrontLeftMid{4};
 
 //Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
-bool SolenoidButton = false;
+bool CargoButton = false;
 
-//HatchLock
-
+//Hatch Lock
 frc::Solenoid HatchIntake{1};
-
-frc::Solenoid HatchIntake{1};
-
-bool SolenidButton = false;
-
+bool HatchButton = false;
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
+
+// LimeLight
+std::shared_ptr<NetworkTable> LimeTable = NetworkTable::GetTable("limelight");
 
 //Straightens out the bot
 float LastSumAngle;
@@ -104,12 +103,12 @@ void Robot::TeleopPeriodic() {
 
   // Lift, Solenoid 0
   if (Xbox.GetRawButton(5)){
-    if (!SolenoidButton){
+    if (!CargoButton){
       CargoIntake.Set(!CargoIntake.Get());
-      SolenoidButton = true;
+      CargoButton = true;
     }
   } else {
-    SolenoidButton = false;
+    CargoButton = false;
   }
 
   // Intake's the ball
