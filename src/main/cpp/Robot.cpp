@@ -36,8 +36,6 @@ VictorSPX FrontLeftMid{4};
 //Pneumatics
 frc::Solenoid CargoIntake{0};
 
-frc::Solenoid HatchGrabber{1};
-
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
@@ -52,9 +50,8 @@ void Robot::RobotInit() {
   RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
 
-  HatchGrabber.Set(false);
   CargoIntake.Set(false);
-  
+
   Gyro.Reset();
 }
 
@@ -90,7 +87,7 @@ void Robot::TeleopPeriodic() {
   // Lift, Solenoid 0
   if (Xbox.GetRawButton(5)){
     if (!SolenoidButton){
-      HatchGrabber.Set(!HatchGrabber.Get());
+      CargoIntake.Set(!CargoIntake.Get());
       SolenoidButton = true;
     }
   } else {
@@ -99,7 +96,9 @@ void Robot::TeleopPeriodic() {
 
   // Intake Motor
   if (Xbox.GetRawButton(3)){
-    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, .5);
+    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
+  } else {
+    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
   }
 
   // Point turning 
