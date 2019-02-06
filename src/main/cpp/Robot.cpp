@@ -60,6 +60,7 @@ void Robot::RobotInit() {
   RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
 
+  HatchIntake.Set(false);
   CargoIntake.Set(false);
 
   Gyro.Reset();
@@ -109,6 +110,7 @@ void Robot::TeleopPeriodic() {
     }
   } else {
     CargoButton = false;
+    HatchButton = false;
   }
 
   // Intake's the ball
