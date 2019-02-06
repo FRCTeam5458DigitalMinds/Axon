@@ -33,9 +33,14 @@ frc::ADXRS450_Gyro Gyro{};
 //Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics/ Lift
+//Pneumatics
+//Lift
 frc::Solenoid CargoIntake{0};
 bool SolenoidButton = false;
+//HatchLock
+frc:::Solenoid HatchIntake{1};
+bool SolenidButton = false;
+
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
@@ -51,6 +56,7 @@ void Robot::RobotInit() {
   LeftMotors.SetInverted(false);
 
   CargoIntake.Set(false);
+  HatchIntake.Set(false);
 
   Gyro.Reset();
 }
@@ -92,6 +98,15 @@ void Robot::TeleopPeriodic() {
       SolenoidButton = true;
     }
   } else {
+    SolenoidButton = false;
+  }
+  //HatchLock
+  if (Xbox.GetRawButton(2)){
+    if(!SolenoidButton){
+      HatchIntake.Set(!HatchIntake.Get());
+      SolenoidButton = true;
+    }
+  } else{
     SolenoidButton = false;
   }
 
