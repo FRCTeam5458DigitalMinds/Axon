@@ -91,19 +91,21 @@ void Robot::TeleopInit() {}
 /*Called every robot packet in teleop*/
 void Robot::TeleopPeriodic() {
   //Gets axis for each controller
-  double yInput = JoyAccel1.GetY();
-  double xInput = RaceWheel.GetX();
+  double JoyY = JoyAccel1.GetY();
+  double WheelX = RaceWheel.GetX();
 
   //Power get's cut from one side of the bot to straighten out when driving straight
   float sumAngle = Gyro.GetAngle();
   float derivAngle = sumAngle - LastSumAngle;
   float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
 
-  
-  DriveTrain.ArcadeDrive(-xInput, yInput);
-
-  // Lift, Solenoid 0
+  // Intake Lift
   if (Xbox.GetRawButton(5)){
+    /* Create a variable because it is impossible to press the button for only one robot packet.
+    ** The variable is checked to be false, then inverses the intake and sets the variable is true.
+    ** As long as the variable is true, nothing is run. The variable is set back to false when the
+    ** button is released.
+    */
     if (!SolenoidButton){
       CargoIntake.Set(!CargoIntake.Get());
       SolenoidButton = true;
@@ -112,24 +114,25 @@ void Robot::TeleopPeriodic() {
     SolenoidButton = false;
   }
 
-  // Intake's the ball
+  // Intakes the ball
   if (Xbox.GetRawButton(3)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
-  } else {
-    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-  }
-  
-  //Spits the ball
-  if (Xbox.GetRawButton(1)){
+  // Spits the ball
+  } else if (Xbox.GetRawButton(1)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
   } else {
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
   }
 
-  // Point turning 
-  if (RaceWheel.GetRawButton(5)){
-    RightMotors.Set(xInput);
-    LeftMotors.Set(xInput);  
+  // Use Arcade Drive if we're touching the joystick
+  if (JoyAccel1.GetY() > 0.02 || JoyAccel1.GetY < -0.02) {
+    DriveTrain.ArcadeDrive(-WheelX, JoyY);
+  } else {
+    // Point turning 
+    if (RaceWheel.GetRawButton(5)){
+      RightMotors.Set(WheelX);
+      LeftMotors.Set(WheelX);
+    }
   }
   
   //Straightens out bot here when driving straight
