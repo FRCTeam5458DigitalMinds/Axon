@@ -28,19 +28,26 @@ frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 
+float signed_square(float x){
+  return x * fabsf(x);
+}
+
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
 //Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics/ Lift
+// Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
-bool CargoButton = false;
-
-//Hatch Lock
+bool SolenoidButton = false;
+// HatchLock
 frc::Solenoid HatchIntake{1};
-bool HatchButton = false;
+bool SolenidButton = false;
+
+// Elevator Stuff
+TalonSRX FrontRightBack{12};
+VictorSPX FrontRightMid{11};
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
@@ -91,18 +98,17 @@ void Robot::TeleopInit() {}
 /*Called every robot packet in teleop*/
 void Robot::TeleopPeriodic() {
   //Gets axis for each controller
-  double yInput = JoyAccel1.GetY();
-  double xInput = RaceWheel.GetX();
+  double JoyY = JoyAccel1.GetY();
+  double WheelX = RaceWheel.GetX();
+
+  double SquaredWheelInput = signed_square(WheelX);
 
   //Power get's cut from one side of the bot to straighten out when driving straight
   float sumAngle = Gyro.GetAngle();
   float derivAngle = sumAngle - LastSumAngle;
   float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
 
-  
-  DriveTrain.ArcadeDrive(-xInput, yInput);
-
-  // Lift, Solenoid 0
+  // Intake Lift
   if (Xbox.GetRawButton(5)){
     if (!CargoButton){
       CargoIntake.Set(!CargoIntake.Get());
@@ -113,25 +119,28 @@ void Robot::TeleopPeriodic() {
     HatchButton = false;
   }
 
-  // Intake's the ball
+  // Intakes the ball
   if (Xbox.GetRawButton(3)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
-  } else {
-    FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
-  }
-  
-  //Spits the ball
-  if (Xbox.GetRawButton(1)){
+  // Spits the ball
+  } else if (Xbox.GetRawButton(1)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
   } else {
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
   }
 
-  // Point turning 
   if (RaceWheel.GetRawButton(5)){
-    RightMotors.Set(xInput);
-    LeftMotors.Set(xInput);  
+    RightMotors.Set(SquaredWheelInput);
+    LeftMotors.Set(-SquaredWheelInput);
+  } else if(JoyY > 0.02 || JoyY < -0.02){
+    DriveTrain.ArcadeDrive(-SquaredWheelInput, JoyY, true);
+  } else {
+    RightMotors.Set(0);
+    LeftMotors.Set(0);
   }
+  
+
+
   
   //Straightens out bot here when driving straight
   LastSumAngle = sumAngle;
@@ -140,6 +149,7 @@ void Robot::TeleopPeriodic() {
 
 /*Called every robot packet in testing mode*/
 void Robot::TestPeriodic() {}
+
 
 /*Starts the bot*/
 #ifndef RUNNING_FRC_TESTS
