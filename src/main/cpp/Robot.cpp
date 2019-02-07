@@ -8,6 +8,7 @@
 #include <ctre/Phoenix.h>
 #include <frc/ADXRS450_Gyro.h>
 #include <frc/SpeedControllerGroup.h>
+#include <NetworkTables/NetworkTable.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
@@ -51,6 +52,9 @@ VictorSPX FrontRightMid{11};
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
+// LimeLight
+std::shared_ptr<NetworkTable> LimeTable = NetworkTable::GetTable("limelight");
+
 //Straightens out the bot
 float LastSumAngle;
 
@@ -63,6 +67,7 @@ void Robot::RobotInit() {
   RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
 
+  HatchIntake.Set(false);
   CargoIntake.Set(false);
 
   Gyro.Reset();
@@ -105,17 +110,13 @@ void Robot::TeleopPeriodic() {
 
   // Intake Lift
   if (Xbox.GetRawButton(5)){
-    /* Create a variable because it is impossible to press the button for only one robot packet.
-    ** The variable is checked to be false, then inverses the intake and sets the variable is true.
-    ** As long as the variable is true, nothing is run. The variable is set back to false when the
-    ** button is released.
-    */
-    if (!SolenoidButton){
+    if (!CargoButton){
       CargoIntake.Set(!CargoIntake.Get());
-      SolenoidButton = true;
+      CargoButton = true;
     }
   } else {
-    SolenoidButton = false;
+    CargoButton = false;
+    HatchButton = false;
   }
 
   // Intakes the ball
