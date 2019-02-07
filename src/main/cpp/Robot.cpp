@@ -27,24 +27,26 @@ frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 
+float signed_square(float x){
+  return x * fabsf(x);
+}
+
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
 //Cargo Intake
 VictorSPX FrontLeftMid{4};
 
-//Pneumatics/ Lift
+// Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
 bool SolenoidButton = false;
-
-//HatchLock
-
+// HatchLock
 frc::Solenoid HatchIntake{1};
-
-frc::Solenoid HatchIntake{1};
-
 bool SolenidButton = false;
 
+// Elevator Stuff
+TalonSRX FrontRightBack{12};
+VictorSPX FrontRightMid{11};
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
@@ -94,6 +96,8 @@ void Robot::TeleopPeriodic() {
   double JoyY = JoyAccel1.GetY();
   double WheelX = RaceWheel.GetX();
 
+  double SquaredWheelInput = signed_square(WheelX);
+
   //Power get's cut from one side of the bot to straighten out when driving straight
   float sumAngle = Gyro.GetAngle();
   float derivAngle = sumAngle - LastSumAngle;
@@ -124,16 +128,18 @@ void Robot::TeleopPeriodic() {
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
   }
 
-  // Use Arcade Drive if we're touching the joystick
-  if (JoyAccel1.GetY() > 0.02 || JoyAccel1.GetY < -0.02) {
-    DriveTrain.ArcadeDrive(-WheelX, JoyY);
+  if (RaceWheel.GetRawButton(5)){
+    RightMotors.Set(SquaredWheelInput);
+    LeftMotors.Set(-SquaredWheelInput);
+  } else if(JoyY > 0.02 || JoyY < -0.02){
+    DriveTrain.ArcadeDrive(-SquaredWheelInput, JoyY, true);
   } else {
-    // Point turning 
-    if (RaceWheel.GetRawButton(5)){
-      RightMotors.Set(WheelX);
-      LeftMotors.Set(WheelX);
-    }
+    RightMotors.Set(0);
+    LeftMotors.Set(0);
   }
+  
+
+
   
   //Straightens out bot here when driving straight
   LastSumAngle = sumAngle;
@@ -142,6 +148,7 @@ void Robot::TeleopPeriodic() {
 
 /*Called every robot packet in testing mode*/
 void Robot::TestPeriodic() {}
+
 
 /*Starts the bot*/
 #ifndef RUNNING_FRC_TESTS
