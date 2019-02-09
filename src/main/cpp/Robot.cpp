@@ -40,10 +40,10 @@ VictorSPX FrontLeftMid{4};
 
 // Pneumatics/ Lift
 frc::Solenoid CargoIntake{0};
-bool SolenoidButton = false;
+bool CargoButton = false;
 // HatchLock
 frc::Solenoid HatchIntake{1};
-bool SolenidButton = false;
+bool HatchButton = false;
 
 // Elevator Stuff
 TalonSRX FrontRightBack{12};
