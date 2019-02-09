@@ -1,4 +1,6 @@
+#include <string>
 #include <Robot.h>
+#include <sstream>
 #include <WPILib.h>
 #include <iostream>
 #include <frc/Timer.h>
@@ -11,6 +13,7 @@
 #include <NetworkTables/NetworkTable.h>
 #include <frc/drive/DifferentialDrive.h>
 #include <frc/smartdashboard/SmartDashboard.h>
+
 
 //Declarations
 
@@ -46,8 +49,9 @@ frc::Solenoid HatchIntake{1};
 bool HatchButton = false;
 
 // Elevator Stuff
-TalonSRX FrontRightBack{12};
-VictorSPX FrontRightMid{11};
+WPI_TalonSRX FrontRightBack{12};
+WPI_VictorSPX FrontRightMid{11};
+frc::SpeedControllerGroup Elevator{FrontRightBack, FrontRightMid};
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
@@ -122,6 +126,7 @@ void Robot::TeleopPeriodic() {
   // Intakes the ball
   if (Xbox.GetRawButton(3)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -.5);
+    std::cout << FrontLeftMid.GetBusVoltage() << std::endl;
   // Spits the ball
   } else if (Xbox.GetRawButton(1)){
     FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
@@ -138,8 +143,6 @@ void Robot::TeleopPeriodic() {
     RightMotors.Set(0);
     LeftMotors.Set(0);
   }
-  
-
 
   
   //Straightens out bot here when driving straight
