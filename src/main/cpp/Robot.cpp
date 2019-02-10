@@ -3,6 +3,7 @@
 #include <sstream>
 #include <WPILib.h>
 #include <iostream>
+#include <Encoder.h>
 #include <frc/Timer.h>
 #include <TimedRobot.h>
 #include <frc/Solenoid.h>
@@ -33,19 +34,19 @@ frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightMid,BackRightBack}
 frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
-
+// Helps Driving 
 float signed_square(float x){
   return x * fabsf(x);
 }
-
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-//Cargo Intake
+// Cargo Intake
 VictorSPX FrontLeftMid{4};
 int Spiked = 0;
 
-// Pneumatics/ Lift
+// Pneumatics
+// Lift
 frc::Solenoid CargoIntake{0};
 bool CargoButton = false;
 // HatchLock
@@ -61,10 +62,9 @@ frc::SpeedControllerGroup Elevator{FrontRightBack, FrontRightMid};
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
 // LimeLight
-
 std::shared_ptr<NetworkTable> LimeTable = NetworkTable::GetTable("limelight");
 
-//Variables for intake
+// Variables for intake
 bool threeFirstPressed = false;
 float intakeCurrentStart, intakeCurrentEnd;
 int intakeCurrentCounter = 0;
@@ -72,7 +72,7 @@ int intakeCurrentFrames = 3;
 int intakeCurrentThreshold = 10;
 bool intakeStalled = false;
 
-//Straightens out the bot
+// Straightens out the bot
 float LastSumAngle;
 
 /*Called on robot connection*/
@@ -141,7 +141,6 @@ void Robot::TeleopPeriodic() {
   // Intakes the ball when button 3 is pressed
   if (Xbox.GetRawButton(3))
   {
-    
     //Check if the intakeStalled variable is false, meaning that the intake motor is not currently stalling
     if (!intakeStalled)
     {
@@ -219,7 +218,6 @@ void Robot::TeleopPeriodic() {
     LeftMotors.Set(0);
   }
 
-  
   //Straightens out bot here when driving straight
   LastSumAngle = sumAngle;
 
