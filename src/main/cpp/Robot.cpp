@@ -41,7 +41,7 @@ float signed_square(float x){
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-// Cargo Intake
+// Cargo Intakez
 VictorSPX FrontLeftMid{4};
 int Spiked = 0;
 
@@ -54,9 +54,27 @@ frc::Solenoid HatchIntake{1};
 bool HatchButton = false;
 
 // Elevator Stuff
+/*
+1 Encoder Revolution = 1.037 inches
+Encoder is ~1 inch off of the ground
+Ball holes:
+  5 | Top    | 83.5 Inches | 80.521 revolutions
+  3 | Middle | 55.5 Inches | 53.519 revolutions
+  1 | Bottom | 27.5 Inches | 26.518 revolutions
+Hatch holes:
+  4 | Top    | 75 Inches   | 72.324 revolutions
+  2 | Middle | 47 Inches   | 45.323 revolutions
+  0 | Bottom | 19 Inches   | 18.322 revolutions
+*/
 WPI_TalonSRX FrontRightBack{12};
 WPI_VictorSPX FrontRightMid{11};
 frc::SpeedControllerGroup Elevator{FrontRightBack, FrontRightMid};
+frc::Encoder ElevatorEnc{0, 1};
+bool Elevator = true;
+int ElevatorPosition = 0;
+float ElevatorPositions [] = {18.322, 26.518, 45.323, 53.519, 72.324, 80.521};
+int ElevatorPositionsSize = sizeof(ElevatorPositions)/sizeof(ElevatorPositions[0]); 
+float NextPosition;
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
@@ -88,6 +106,8 @@ void Robot::RobotInit() {
   CargoIntake.Set(false);
 
   Gyro.Reset();
+
+  ElevatorEnc.SetDistancePerPulse(1.037);
 }
 
 /*Called on every robot packet, no matter what mode*/
@@ -119,6 +139,7 @@ void Robot::TeleopPeriodic() {
   //Gets axis for each controller
   double JoyY = JoyAccel1.GetY();
   double WheelX = RaceWheel.GetX();
+  double XboxRightAnalogY = Xbox.GetRawAxis(5);
 
   double SquaredWheelInput = signed_square(WheelX);
 
@@ -126,6 +147,35 @@ void Robot::TeleopPeriodic() {
   float sumAngle = Gyro.GetAngle();
   float derivAngle = sumAngle - LastSumAngle;
   float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
+
+  // Manual Elevator Movement
+  if (XboxRightAnalogY > 0.02 || XboxRightAnalogY < -0.02) {
+    Elevator.Set(XboxRightAnalogY);
+  } else {
+    Elevator.Set(0);
+  }
+
+  // Move elevator up automatically
+  if (Xbox.GetRawButton(6)){
+    if(ElevatorPosition < ElevatorPositionsSize){
+      NextPosition = ElevatorPositions[ElevatorPosition + 1];
+    }
+  }
+
+  // Move elevator down automatically
+  if (Xbox.GetRawButton(5)){
+    if(ElevatorPosition > 0){
+      NextPosition = ElevatorPositions[ElevatorPosition - 1];
+    }
+  }
+
+  if(ElevatorEnc.Get() < NextPosition){
+    Elevator.Set(0.2);
+  } else if (ElevatorEnc.Get() > NextPosition){
+    Elevator.Set(-0.2);
+  } else {
+    Elevator.Set(0);
+  }
 
   // Intake Lift
   if (Xbox.GetRawButton(5)){
@@ -175,9 +225,9 @@ void Robot::TeleopPeriodic() {
         if ((abs(intakeCurrentEnd - intakeCurrentStart) < 2) && intakeCurrentEnd > intakeCurrentThreshold)
         {
 
-          //If both of the above arguments are true, we set the intake motor to zero because it must be stalling
-          //We also set intakeStalled variable to true so that the whole system does not start over until button 3 is released
-          //and pressed again
+          /*If both of the above arguments are true, we set the intake motor to zero because it must be stalling
+          We also set intakeStalled variable to true so that the whole system does not start over until button 3 is released
+          and pressed again*/
           FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
           intakeStalled = true;
 
@@ -214,7 +264,7 @@ void Robot::TeleopPeriodic() {
   } else if(JoyY > 0.02 || JoyY < -0.02){
     DriveTrain.ArcadeDrive(-SquaredWheelInput, JoyY, true);
   } else {
-    RightMotors.Set(0);
+    RightMotors.Set(0); 
     LeftMotors.Set(0);
   }
 
@@ -222,6 +272,7 @@ void Robot::TeleopPeriodic() {
   LastSumAngle = sumAngle;
 
 }
+
 
 /*Called every robot packet in testing mode*/
 void Robot::TestPeriodic() {}
