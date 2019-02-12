@@ -34,6 +34,9 @@ frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightMid,BackRightBack}
 frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
+frc::Encoder LeftEnc{2,3};
+frc::Encoder RightEnc{4,5};
+//                     ^both # are subject to change...
 // Helps Driving 
 float signed_square(float x){
   return x * fabsf(x);
@@ -101,6 +104,11 @@ void Robot::RobotInit() {
 
   RightMotors.SetInverted(true);
   LeftMotors.SetInverted(false);
+  
+  LeftEnc.SetDistancePerPulse(1.0 / 360.0 * 2.0 * M_PI * 2);
+	LeftEnc.Reset();
+	RightEnc.SetDistancePerPulse(1.0 / 360.0 * 2.0 * M_PI * 2);
+	RightEnc.Reset();
 
   HatchIntake.Set(false);
   CargoIntake.Set(false);
@@ -131,7 +139,7 @@ void Robot::AutonomousPeriodic() {
 
 /*Called when teleop is enabled*/
 void Robot::TeleopInit() {
-
+  
 }
 
 /*Called every robot packet in teleop*/
