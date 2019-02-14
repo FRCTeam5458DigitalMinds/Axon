@@ -1,3 +1,10 @@
+/*
+  2019 - Axon
+
+  "🅱️"
+    - The Team 5458 Programming Team
+*/
+
 #include <string>
 #include <Robot.h>
 #include <sstream>
@@ -34,6 +41,7 @@ frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightMid,BackRightBack}
 frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
+// Drive Train Encoders
 frc::Encoder LeftEnc{2,3};
 frc::Encoder RightEnc{4,5};
 //                     ^both # are subject to change...
@@ -78,12 +86,22 @@ int ElevatorPosition = 0;
 float ElevatorPositions [] = {18.322, 26.518, 45.323, 53.519, 72.324, 80.521};
 int ElevatorPositionsSize = sizeof(ElevatorPositions)/sizeof(ElevatorPositions[0]); 
 float NextPosition;
+bool ElevatorButtonPressed = false;
+
+// Limit Switch 
 
 // Joystick & Racewheel
 frc::Joystick JoyAccel1{0}, Xbox{1}, RaceWheel{2};
 
 // LimeLight
 std::shared_ptr<NetworkTable> LimeTable = NetworkTable::GetTable("limelight");
+
+// Limit Switches
+frc::DigitalInput ElevatorLimitBottom{0};
+frc::DigitalInput ElevatorLimitTop {1};
+frc::DigitalInput HatchLimitLeft{2};
+frc::DigitalInput HatchLimitRight{3};
+//                                ^all #s are subject to change...
 
 // Variables for intake
 bool threeFirstPressed = false;
@@ -163,18 +181,44 @@ void Robot::TeleopPeriodic() {
     Elevator.Set(0);
   }
 
-  // Move elevator up automatically
-  if (Xbox.GetRawButton(6)){
-    if(ElevatorPosition < ElevatorPositionsSize){
-      NextPosition = ElevatorPositions[ElevatorPosition + 1];
+  // Elevator is at top
+  if (ElevatorLimitTop.Get()) {
+    if (!(NextPosition < ElevatorPosition)){
+      Elevator.Set(0);
+    }
+    if (!(XboxRightAnalogY < -0.02)) {
+      Elevator.Set(0);
     }
   }
 
-  // Move elevator down automatically
-  if (Xbox.GetRawButton(5)){
-    if(ElevatorPosition > 0){
-      NextPosition = ElevatorPositions[ElevatorPosition - 1];
+  // Elevator is at bottom
+  if (ElevatorLimitBottom.Get()){
+    ElevatorEnc.Reset();
+    if (!(NextPosition > ElevatorPosition)){
+      Elevator.Set(0);
     }
+    if (!(XboxRightAnalogY > 0.02)) {
+      Elevator.Set(0);
+    }
+  }
+
+  // Move elevator up automatically
+  if (Xbox.GetRawButton(6)){
+    if(!ElevatorButtonPressed) {
+      if(ElevatorPosition < ElevatorPositionsSize){
+        NextPosition = ElevatorPositions[ElevatorPosition + 1];
+      }
+      ElevatorButtonPressed = true;
+    }
+  } else if (Xbox.GetRawButton(5)){
+    if(!ElevatorButtonPressed) {
+      if(ElevatorPosition > 0){
+        NextPosition = ElevatorPositions[ElevatorPosition - 1];
+      }
+      ElevatorButtonPressed = true;
+    }
+  } else {
+    ElevatorButtonPressed = false;
   }
 
   if(ElevatorEnc.Get() < NextPosition){
@@ -186,7 +230,7 @@ void Robot::TeleopPeriodic() {
   }
 
   // Intake Lift
-  if (Xbox.GetRawButton(5)){
+  if (Xbox.GetRawButton(2)){
     if (!CargoButton){
       CargoIntake.Set(!CargoIntake.Get());
       CargoButton = true;
@@ -194,6 +238,20 @@ void Robot::TeleopPeriodic() {
   } else {
     CargoButton = false;
     HatchButton = false;
+  }
+
+  // Hatch Grabber
+  if (Xbox.GetRawButton(4)){
+    if (!HatchButton){
+      HatchIntake.Set(!CargoIntake.Get());
+      HatchButton = true;
+    }
+  } else {
+    HatchButton = false;
+  }
+
+  if (HatchLimitLeft.Get() && HatchLimitRight.Get()){
+    HatchIntake.Set(true);
   }
 
   // Intakes the ball when button 3 is pressed
