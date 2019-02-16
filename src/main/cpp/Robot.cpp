@@ -288,7 +288,7 @@ void Robot::TeleopPeriodic() {
         //The next argument in the if statement checks if the electrical current at the end of the 3 frames is greater than the
         //threshold, currently set to 10.
         //This argument lets us know that the motor is probably stalling, to differentiate it from just not intaking anything
-        if ((abs(intakeCurrentEnd - intakeCurrentStart) < 2) && intakeCurrentEnd > intakeCurrentThreshold)
+        if ((fabs(intakeCurrentEnd - intakeCurrentStart) < 2) && intakeCurrentEnd > intakeCurrentThreshold)
         {
 
           /*If both of the above arguments are true, we set the intake motor to zero because it must be stalling
