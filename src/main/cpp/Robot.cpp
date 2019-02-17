@@ -58,10 +58,10 @@ int Spiked = 0;
 
 // Pneumatics
 // Lift
-frc::Solenoid CargoIntake{0};
+frc::Solenoid CargoIntake{1};
 bool CargoButton = false;
 // HatchLock
-frc::Solenoid HatchIntake{1};
+frc::Solenoid HatchIntake{0};
 bool HatchButton = false;
 
 // Elevator Stuff
