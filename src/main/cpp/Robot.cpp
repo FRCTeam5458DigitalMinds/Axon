@@ -7,6 +7,7 @@
 
 #include <string>
 #include <Robot.h>
+#include <ctime>
 #include <sstream>
 #include <WPILib.h>
 #include <iostream>
@@ -53,15 +54,15 @@ float signed_square(float x){
 frc::ADXRS450_Gyro Gyro{}; 
 
 // Cargo Intakez
-VictorSPX FrontLeftMid{4};
+TalonSRX FrontRightBack{12};
 int Spiked = 0;
 
 // Pneumatics
 // Lift
-frc::Solenoid CargoIntake{1};
+frc::Solenoid CargoIntake{0};
 bool CargoButton = false;
 // HatchLock
-frc::Solenoid HatchIntake{0};
+frc::Solenoid HatchIntake{1};
 bool HatchButton = false;
 
 // Elevator Stuff
@@ -77,7 +78,7 @@ Hatch holes:
   2 | Middle | 47 Inches   | 45.323 revolutions
   0 | Bottom | 19 Inches   | 18.322 revolutions
 */
-WPI_TalonSRX FrontRightBack{12};
+/*WPI_TalonSRX FrontRightBack{12};
 WPI_VictorSPX FrontRightMid{11};
 frc::SpeedControllerGroup Elevator{FrontRightBack, FrontRightMid};
 frc::Encoder ElevatorEnc{0, 1};
@@ -87,6 +88,7 @@ float ElevatorPositions [] = {18.322, 26.518, 45.323, 53.519, 72.324, 80.521};
 int ElevatorPositionsSize = sizeof(ElevatorPositions)/sizeof(ElevatorPositions[0]); 
 float NextPosition;
 bool ElevatorButtonPressed = false;
+*/
 
 // Limit Switch 
 
@@ -113,7 +115,24 @@ bool intakeStalled = false;
 
 // Straightens out the bot
 float LastSumAngle;
-
+/*
+bool Wait(const unsigned long &Time)
+{
+    clock_t Tick = clock_t(float(clock()) / float(CLOCKS_PER_SEC) * 1000.f);
+    if(Tick < 0) // if clock() fails, it returns -1
+        return 0;
+    clock_t Now = clock_t(float(clock()) / float(CLOCKS_PER_SEC) * 1000.f);
+    if(Now < 0)
+        return 0;
+    while( (Now - Tick) < Time )
+    {
+        Now = clock_t(float(clock()) / float(CLOCKS_PER_SEC) * 1000.f);
+        if(Now < 0)
+            return 0;
+    }
+    return 1;
+}
+*/
 /*Called on robot connection*/
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
@@ -133,7 +152,7 @@ void Robot::RobotInit() {
 
   Gyro.Reset();
 
-  ElevatorEnc.SetDistancePerPulse(1.037);
+  //ElevatorEnc.SetDistancePerPulse(1.037);
 }
 
 /*Called on every robot packet, no matter what mode*/
@@ -174,6 +193,7 @@ void Robot::TeleopPeriodic() {
   float derivAngle = sumAngle - LastSumAngle;
   float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
 
+  /*
   // Manual Elevator Movement
   if (XboxRightAnalogY > 0.02 || XboxRightAnalogY < -0.02) {
     Elevator.Set(XboxRightAnalogY);
@@ -228,6 +248,7 @@ void Robot::TeleopPeriodic() {
   } else {
     Elevator.Set(0);
   }
+  */
 
   // Intake Lift
   if (Xbox.GetRawButton(2)){
@@ -242,12 +263,15 @@ void Robot::TeleopPeriodic() {
 
   // Hatch Grabber
   if (Xbox.GetRawButton(4)){
-    if (!HatchButton){
-      HatchIntake.Set(!CargoIntake.Get());
-      HatchButton = true;
-    }
+  //  if (!HatchButton){
+      HatchIntake.Set(!HatchIntake.Get());
+   //   HatchButton = true;
+    //}
+  //} else {
+    /*HatchButton = false;
+    CargoButton = false;*/
   } else {
-    HatchButton = false;
+    HatchButton;
   }
 
   if (HatchLimitLeft.Get() && HatchLimitRight.Get()){
@@ -294,13 +318,13 @@ void Robot::TeleopPeriodic() {
           /*If both of the above arguments are true, we set the intake motor to zero because it must be stalling
           We also set intakeStalled variable to true so that the whole system does not start over until button 3 is released
           and pressed again*/
-          FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+          FrontRightBack.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
           intakeStalled = true;
 
         }
         //If either one of the above arguements are false, it must not be stalling because of an intaked ball so it continues to spin
         //the motor
-        else FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
+        else FrontRightBack.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -1);
 
       }
 
@@ -313,11 +337,11 @@ void Robot::TeleopPeriodic() {
   { 
   
     //Spit the ball if button 1 is pressed when button 3 is not being pressed
-    if (Xbox.GetRawButton(1)) FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    if (Xbox.GetRawButton(1)) FrontRightBack.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
     else 
     {
       
-      FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+      FrontRightBack.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
       intakeStalled = false;
 
     }
@@ -346,5 +370,7 @@ void Robot::TestPeriodic() {}
 
 /*Starts the bot*/
 #ifndef RUNNING_FRC_TESTS
-int main() { return frc::StartRobot<Robot>(); }
+int main() { 
+  return frc::StartRobot<Robot>();
+  }
 #endif
