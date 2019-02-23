@@ -22,16 +22,16 @@
 frc::PowerDistributionPanel pdp{0};
 
 // Right Side Motors
-WPI_TalonSRX BackRightBack{15};
-WPI_VictorSPX BackRightMid{14};
-WPI_VictorSPX BackRightFront{13};
+WPI_TalonSRX RightMotorOne{15};
+WPI_VictorSPX RightMotorTwo{14};
+WPI_VictorSPX RightMotorThree{13};
 // Left Side Motors
-WPI_TalonSRX BackLeftBack{0};
-WPI_VictorSPX BackLeftMid{1};
-WPI_VictorSPX BackLeftFront{2};
+WPI_TalonSRX LeftMotorOne{0};
+WPI_VictorSPX LeftMotorTwo{1};
+WPI_VictorSPX LeftMotorThree{2};
 // Speed Controller Groups
-frc::SpeedControllerGroup RightMotors{BackRightFront,BackRightMid,BackRightBack};
-frc::SpeedControllerGroup LeftMotors{BackLeftFront, BackLeftMid, BackLeftBack};
+frc::SpeedControllerGroup RightMotors{RightMotorThree,RightMotorTwo,RightMotorOne};
+frc::SpeedControllerGroup LeftMotors{LeftMotorThree, LeftMotorTwo, LeftMotorOne};
 // Drive Train
 frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
 frc::Encoder LeftEnc{2,3};
@@ -44,8 +44,8 @@ float signed_square(float x){
 // Gyro
 frc::ADXRS450_Gyro Gyro{}; 
 
-// Cargo Intakez
-VictorSPX FrontLeftMid{4};
+// Cargo Intake
+VictorSPX CargoIntakeMotor{4};
 int Spiked = 0;
 
 // Pneumatics
@@ -69,9 +69,9 @@ Hatch holes:
   2 | Middle | 47 Inches   | 45.323 revolutions
   0 | Bottom | 19 Inches   | 18.322 revolutions
 */
-WPI_TalonSRX FrontRightBack{12};
-WPI_VictorSPX FrontRightMid{11};
-frc::SpeedControllerGroup Elevator{FrontRightBack, FrontRightMid};
+WPI_TalonSRX ElevatorMotorOne{12};
+WPI_VictorSPX ElevatorMotorTwo{11};
+frc::SpeedControllerGroup Elevator{ElevatorMotorOne, ElevatorMotorTwo};
 frc::Encoder ElevatorEnc{0, 1};
 bool Elevator = true;
 int ElevatorPosition = 0;
@@ -236,13 +236,13 @@ void Robot::TeleopPeriodic() {
           /*If both of the above arguments are true, we set the intake motor to zero because it must be stalling
           We also set intakeStalled variable to true so that the whole system does not start over until button 3 is released
           and pressed again*/
-          FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+          CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
           intakeStalled = true;
 
         }
         //If either one of the above arguements are false, it must not be stalling because of an intaked ball so it continues to spin
         //the motor
-        else FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
+        else CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
 
       }
 
@@ -255,11 +255,11 @@ void Robot::TeleopPeriodic() {
   { 
   
     //Spit the ball if button 1 is pressed when button 3 is not being pressed
-    if (Xbox.GetRawButton(1)) FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
+    if (Xbox.GetRawButton(1)) CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
     else 
     {
       
-      FrontLeftMid.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+      CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
       intakeStalled = false;
 
     }
