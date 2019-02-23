@@ -1,0 +1,926 @@
+[
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "/Users/maximocazares/frc2019/roborio/bin/arm-frc2019-linux-gnueabi-g++",
+    "cPath": "/Users/maximocazares/frc2019/roborio/bin/arm-frc2019-linux-gnueabi-gcc",
+    "msvc": false,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/chipobject-2019.12.1-headers.zip_45012665afb78c4c4816a3a35e8fe8aa",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/netcomm-2019.12.1-headers.zip_97d07b8af9f28e0504c6dc239ac1f176",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+      "/Users/maximocazares/workspace/Axon/src/main/include",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-sources.zip_d2c10ca9fef4a09e287ef5192d19cdb5",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-sources.zip_9dcb46c9ade4c7c133c75a9dc6ab4149",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-sources.zip_9f28652342db3ad84df141544ddc4945",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-sources.zip_5b333f7bca5b450503f0c4cb795f1b79",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-sources.zip_8c8defa0812cd4300c0a822153198fd4",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-sources.zip_3f44c805661dec1ebaa017c40eb16cae",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-sources.zip_77141d62b3e263395a4b585628a50d3d"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-Wformat\u003d2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-Og"
+            ],
+            "macros": [
+              "DEBUG\u003dnull"
+            ]
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/chipobject-2019.12.1-headers.zip_45012665afb78c4c4816a3a35e8fe8aa",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/netcomm-2019.12.1-headers.zip_97d07b8af9f28e0504c6dc239ac1f176",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/cpp"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-Wformat\u003d2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og"
+        ],
+        "macros": [
+          "DEBUG\u003dnull"
+        ]
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/include"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-Wformat\u003d2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-Og"
+        ],
+        "macros": [
+          "DEBUG\u003dnull"
+        ]
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "linuxathena",
+    "architecture": "arm-v7",
+    "operatingSystem": "linux",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "/Users/maximocazares/frc2019/roborio/bin/arm-frc2019-linux-gnueabi-g++",
+    "cPath": "/Users/maximocazares/frc2019/roborio/bin/arm-frc2019-linux-gnueabi-gcc",
+    "msvc": false,
+    "systemCppMacros": [],
+    "systemCppArgs": [],
+    "systemCMacros": [],
+    "systemCArgs": [],
+    "allLibFiles": [
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/chipobject-2019.12.1-headers.zip_45012665afb78c4c4816a3a35e8fe8aa",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/netcomm-2019.12.1-headers.zip_97d07b8af9f28e0504c6dc239ac1f176",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+      "/Users/maximocazares/workspace/Axon/src/main/include",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-sources.zip_d2c10ca9fef4a09e287ef5192d19cdb5",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-sources.zip_9dcb46c9ade4c7c133c75a9dc6ab4149",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-sources.zip_9f28652342db3ad84df141544ddc4945",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-sources.zip_5b333f7bca5b450503f0c4cb795f1b79",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-sources.zip_8c8defa0812cd4300c0a822153198fd4",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-sources.zip_3f44c805661dec1ebaa017c40eb16cae",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-sources.zip_77141d62b3e263395a4b585628a50d3d"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-Wformat\u003d2",
+              "-pedantic",
+              "-Wno-psabi",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-fPIC",
+              "-rdynamic",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/chipobject-2019.12.1-headers.zip_45012665afb78c4c4816a3a35e8fe8aa",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/netcomm-2019.12.1-headers.zip_97d07b8af9f28e0504c6dc239ac1f176",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/cpp"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-Wformat\u003d2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": []
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/include"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-Wformat\u003d2",
+          "-pedantic",
+          "-Wno-psabi",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-fPIC",
+          "-rdynamic",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": []
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0
+    }
+  },
+  {
+    "name": "osxx86-64",
+    "architecture": "x86-64",
+    "operatingSystem": "Mac OS X",
+    "flavor": "default",
+    "buildType": "debug",
+    "cppPath": "/usr/bin/g++",
+    "cPath": "/usr/bin/gcc",
+    "msvc": false,
+    "systemCppMacros": [],
+    "systemCppArgs": [
+      "-m64"
+    ],
+    "systemCMacros": [],
+    "systemCArgs": [
+      "-m64"
+    ],
+    "allLibFiles": [
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+      "/Users/maximocazares/workspace/Axon/src/main/include",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-sources.zip_d2c10ca9fef4a09e287ef5192d19cdb5",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-sources.zip_9dcb46c9ade4c7c133c75a9dc6ab4149",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-sources.zip_9f28652342db3ad84df141544ddc4945",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-sources.zip_5b333f7bca5b450503f0c4cb795f1b79",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-sources.zip_8c8defa0812cd4300c0a822153198fd4",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-sources.zip_3f44c805661dec1ebaa017c40eb16cae",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-sources.zip_77141d62b3e263395a4b585628a50d3d",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-headers.zip_6df6026f32d57a167443a587edfa5107",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-sources.zip_e457652bffc4a5b821a01bace65a8724"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O0"
+            ],
+            "macros": [
+              "DEBUG\u003dnull"
+            ]
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      },
+      {
+        "componentName": "frcUserProgramTest",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/test/cpp"
+              ],
+              "includes": [
+                "**/*.cpp"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/frcUserProgramTest/headers"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O0"
+            ],
+            "macros": [
+              "DEBUG\u003dnull",
+              "RUNNING_FRC_TESTS\u003dnull"
+            ]
+          },
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O0"
+            ],
+            "macros": [
+              "DEBUG\u003dnull",
+              "RUNNING_FRC_TESTS\u003dnull"
+            ]
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-headers.zip_6df6026f32d57a167443a587edfa5107",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/cpp"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O0"
+        ],
+        "macros": [
+          "DEBUG\u003dnull"
+        ]
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/include"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O0"
+        ],
+        "macros": [
+          "DEBUG\u003dnull"
+        ]
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/test/cpp"
+          ],
+          "includes": [
+            "**/*.cpp"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgramTest",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O0"
+        ],
+        "macros": [
+          "DEBUG\u003dnull",
+          "RUNNING_FRC_TESTS\u003dnull"
+        ]
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/frcUserProgramTest/headers"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgramTest",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O0"
+        ],
+        "macros": [
+          "DEBUG\u003dnull",
+          "RUNNING_FRC_TESTS\u003dnull"
+        ]
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0,
+      "frcUserProgramTest": 1
+    }
+  },
+  {
+    "name": "osxx86-64",
+    "architecture": "x86-64",
+    "operatingSystem": "Mac OS X",
+    "flavor": "default",
+    "buildType": "release",
+    "cppPath": "/usr/bin/g++",
+    "cPath": "/usr/bin/gcc",
+    "msvc": false,
+    "systemCppMacros": [],
+    "systemCppArgs": [
+      "-m64"
+    ],
+    "systemCMacros": [],
+    "systemCArgs": [
+      "-m64"
+    ],
+    "allLibFiles": [
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+      "/Users/maximocazares/workspace/Axon/src/main/include",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-sources.zip_d2c10ca9fef4a09e287ef5192d19cdb5",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-sources.zip_9dcb46c9ade4c7c133c75a9dc6ab4149",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-sources.zip_9f28652342db3ad84df141544ddc4945",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-sources.zip_5b333f7bca5b450503f0c4cb795f1b79",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-sources.zip_8c8defa0812cd4300c0a822153198fd4",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-sources.zip_3f44c805661dec1ebaa017c40eb16cae",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-sources.zip_77141d62b3e263395a4b585628a50d3d",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-headers.zip_6df6026f32d57a167443a587edfa5107",
+      "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-sources.zip_e457652bffc4a5b821a01bace65a8724"
+    ],
+    "binaries": [
+      {
+        "componentName": "frcUserProgram",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": []
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      },
+      {
+        "componentName": "frcUserProgramTest",
+        "sourceSets": [
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/test/cpp"
+              ],
+              "includes": [
+                "**/*.cpp"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/frcUserProgramTest/headers"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": [
+              "RUNNING_FRC_TESTS\u003dnull"
+            ]
+          },
+          {
+            "source": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/cpp"
+              ],
+              "includes": [
+                "**/*.cpp",
+                "**/*.cc"
+              ],
+              "excludes": []
+            },
+            "exportedHeaders": {
+              "srcDirs": [
+                "/Users/maximocazares/workspace/Axon/src/main/include"
+              ],
+              "includes": [],
+              "excludes": []
+            },
+            "cpp": true,
+            "args": [
+              "-std\u003dc++14",
+              "-pedantic-errors",
+              "-fPIC",
+              "-g",
+              "-Wno-unused-parameter",
+              "-Wno-error\u003ddeprecated-declarations",
+              "-Wno-missing-field-initializers",
+              "-Wno-unused-private-field",
+              "-Wno-unused-const-variable",
+              "-pthread",
+              "-O2"
+            ],
+            "macros": [
+              "RUNNING_FRC_TESTS\u003dnull"
+            ]
+          }
+        ],
+        "libHeaders": [
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/hal-cpp-2019.2.1-headers.zip_c1e3733a98824778ae9dc4369a7c5066",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cscore-cpp-2019.2.1-headers.zip_3d9a26a763eb0e1008d349ec462fd509",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cameraserver-cpp-2019.2.1-headers.zip_6d5c4a8bf55973d76d90eeb158bc5c66",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/opencv-cpp-3.4.4-4-headers.zip_ed19d56be47d37c8193b8f0377a9cfe6",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/googletest-1.8.0-4-4e4df22-headers.zip_6df6026f32d57a167443a587edfa5107",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiapi-cpp-5.12.1-headers.zip_97f59bce4d16b98c31d785272d2cbf90",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/api-cpp-5.12.1-headers.zip_e986b26473fb15f3bc8719ff3984c310",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/cci-5.12.1-headers.zip_ac01d991886b7cad435836f8b648e3f3",
+          "/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/core-5.12.1-headers.zip_a0ce3d09c679775751593f941c53f00d",
+          "/Users/maximocazares/workspace/Axon/src/main/include"
+        ]
+      }
+    ],
+    "sourceBinaries": [
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/cpp"
+          ],
+          "includes": [
+            "**/*.cpp",
+            "**/*.cc"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": []
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/main/include"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgram",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": []
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/test/cpp"
+          ],
+          "includes": [
+            "**/*.cpp"
+          ],
+          "excludes": []
+        },
+        "componentName": "frcUserProgramTest",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [
+          "RUNNING_FRC_TESTS\u003dnull"
+        ]
+      },
+      {
+        "source": {
+          "srcDirs": [
+            "/Users/maximocazares/workspace/Axon/src/frcUserProgramTest/headers"
+          ],
+          "includes": [],
+          "excludes": []
+        },
+        "componentName": "frcUserProgramTest",
+        "cpp": true,
+        "args": [
+          "-std\u003dc++14",
+          "-pedantic-errors",
+          "-fPIC",
+          "-g",
+          "-Wno-unused-parameter",
+          "-Wno-error\u003ddeprecated-declarations",
+          "-Wno-missing-field-initializers",
+          "-Wno-unused-private-field",
+          "-Wno-unused-const-variable",
+          "-pthread",
+          "-O2"
+        ],
+        "macros": [
+          "RUNNING_FRC_TESTS\u003dnull"
+        ]
+      }
+    ],
+    "nameBinaryMap": {
+      "frcUserProgram": 0,
+      "frcUserProgramTest": 1
+    }
+  }
+]
