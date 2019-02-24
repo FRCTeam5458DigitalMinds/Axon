@@ -1,15 +1,33 @@
 See file:///Users/maximocazares/workspace/Axon/build/tmp/compileFrcUserProgramTestOsxx86-64DebugGoogleTestExeFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramTestOsxx86-64DebugGoogleTestExeFrcUserProgramCpp.
 compiling Robot.cpp failed.
-In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:2:
+In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:11:
 /Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/WPILib.h:14:2: error: #warning is a language extension [-Werror,-Wpedantic]
 #warning "WPILib.h is deprecated; include frc/WPILib.h instead"
  ^
 /Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/WPILib.h:14:2: warning: "WPILib.h is deprecated; include frc/WPILib.h instead" [-W#warnings]
-In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:5:
+In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:13:
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/Encoder.h:14:2: error: #warning is a language extension [-Werror,-Wpedantic]
+#warning "Encoder.h is deprecated; include frc/Encoder.h instead"
+ ^
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/Encoder.h:14:2: warning: "Encoder.h is deprecated; include frc/Encoder.h instead" [-W#warnings]
+In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:15:
 /Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/TimedRobot.h:14:2: error: #warning is a language extension [-Werror,-Wpedantic]
 #warning "TimedRobot.h is deprecated; include frc/TimedRobot.h instead"
  ^
 /Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/TimedRobot.h:14:2: warning: "TimedRobot.h is deprecated; include frc/TimedRobot.h instead" [-W#warnings]
-2 warnings and 2 errors generated.
+/Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:21:10: warning: non-portable path to file '<networktables/NetworkTable.h>'; specified path differs in case from file name on disk [-Wnonportable-include-path]
+#include <NetworkTables/NetworkTable.h>
+         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+         <networktables/NetworkTable.h>
+/Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:100:57: warning: 'GetTable' is deprecated: use NetworkTableInstance::GetTable() or NetworkTableInstance::GetEntry() instead [-Wdeprecated-declarations]
+std::shared_ptr<NetworkTable> LimeTable = NetworkTable::GetTable("limelight");
+                                                        ^
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/ntcore-cpp-2019.2.1-headers.zip_bb0cec940e93e7a2ed066107bd22e12e/NetworkTables/NetworkTable.h:290:3: note: 'GetTable' has been explicitly marked deprecated here
+  WPI_DEPRECATED(
+  ^
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpiutil-cpp-2019.2.1-headers.zip_961601eb64e5456d71ed70c0f9da8e94/wpi/deprecated.h:24:44: note: expanded from macro 'WPI_DEPRECATED'
+#define WPI_DEPRECATED(msg) __attribute__((deprecated(msg)))
+                                           ^
+5 warnings and 3 errors generated.
 
 Finished compileFrcUserProgramTestOsxx86-64DebugGoogleTestExeFrcUserProgramCpp, see full log file:///Users/maximocazares/workspace/Axon/build/tmp/compileFrcUserProgramTestOsxx86-64DebugGoogleTestExeFrcUserProgramCpp/output.txt.
