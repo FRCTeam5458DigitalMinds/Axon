@@ -32,19 +32,12 @@ frc::PowerDistributionPanel pdp{0};
 WPI_TalonSRX RightMotorOne{15};
 WPI_VictorSPX RightMotorTwo{14};
 WPI_VictorSPX RightMotorThree{13};
+
 // Left Side Motors
 WPI_TalonSRX LeftMotorOne{0};
 WPI_VictorSPX LeftMotorTwo{1};
 WPI_VictorSPX LeftMotorThree{2};
-// Speed Controller Groups
-frc::SpeedControllerGroup RightMotors{RightMotorThree,RightMotorTwo,RightMotorOne};
-frc::SpeedControllerGroup LeftMotors{LeftMotorThree, LeftMotorTwo, LeftMotorOne};
-// Drive Train
-frc::DifferentialDrive DriveTrain{LeftMotors, RightMotors};
-// Drive Train Encoders
-frc::Encoder LeftEnc{2,3};
-frc::Encoder RightEnc{4,5};
-//                     ^both # are subject to change...
+
 // Helps Driving 
 float signed_square(float x){
   return x * fabsf(x);
@@ -76,7 +69,7 @@ Hatch holes:
   4 | Top    | 75 Inches   | 72.324 revolutions
   2 | Middle | 47 Inches   | 45.323 revolutions
   0 | Bottom | 19 Inches   | 18.322 revolutions
-*/
+
 WPI_TalonSRX ElevatorMotorOne{12};
 WPI_VictorSPX ElevatorMotorTwo{11};
 frc::SpeedControllerGroup Elevator{ElevatorMotorOne, ElevatorMotorTwo};
@@ -87,6 +80,7 @@ float ElevatorPositions [] = {18.322, 26.518, 45.323, 53.519, 72.324, 80.521};
 int ElevatorPositionsSize = sizeof(ElevatorPositions)/sizeof(ElevatorPositions[0]); 
 float NextPosition;
 bool ElevatorButtonPressed = false;
+*/
 
 // Limit Switch 
 
@@ -113,6 +107,7 @@ bool intakeStalled = false;
 
 // Straightens out the bot
 float LastSumAngle;
+float turnFact = 0.9;
 
 /*Called on robot connection*/
 void Robot::RobotInit() {
@@ -120,20 +115,12 @@ void Robot::RobotInit() {
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
 
-  RightMotors.SetInverted(true);
-  LeftMotors.SetInverted(false);
-  
-  LeftEnc.SetDistancePerPulse(1.0 / 360.0 * 2.0 * M_PI * 2);
-	LeftEnc.Reset();
-	RightEnc.SetDistancePerPulse(1.0 / 360.0 * 2.0 * M_PI * 2);
-	RightEnc.Reset();
-
   HatchIntake.Set(false);
   CargoIntake.Set(false);
 
   Gyro.Reset();
 
-  ElevatorEnc.SetDistancePerPulse(1.037);
+  //ElevatorEnc.SetDistancePerPulse(1.037);
 }
 
 /*Called on every robot packet, no matter what mode*/
@@ -167,13 +154,12 @@ void Robot::TeleopPeriodic() {
   double WheelX = RaceWheel.GetX();
   double XboxRightAnalogY = Xbox.GetRawAxis(5);
 
-  double SquaredWheelInput = signed_square(WheelX);
-
   //Power get's cut from one side of the bot to straighten out when driving straight
   float sumAngle = Gyro.GetAngle();
   float derivAngle = sumAngle - LastSumAngle;
-  float correctionAngle = (sumAngle *.1) + (derivAngle *.2);
+  float correctionAngle = (sumAngle *0.08) + (derivAngle *0.04);
 
+  /*
   // Manual Elevator Movement
   if (XboxRightAnalogY > 0.02 || XboxRightAnalogY < -0.02) {
     Elevator.Set(XboxRightAnalogY);
@@ -228,6 +214,7 @@ void Robot::TeleopPeriodic() {
   } else {
     Elevator.Set(0);
   }
+  */
 
   // Intake Lift
   if (Xbox.GetRawButton(2)){
@@ -237,7 +224,6 @@ void Robot::TeleopPeriodic() {
     }
   } else {
     CargoButton = false;
-    HatchButton = false;
   }
 
   // Hatch Grabber
@@ -266,7 +252,7 @@ void Robot::TeleopPeriodic() {
       
         //At the start of the counter, store the current electrical current into a variable named intakeCurrentStart
         //Also raise the counter by 1 so that this section of code only runs once and the counter is initialized.
-        intakeCurrentStart = pdp.GetCurrent(4);
+        intakeCurrentStart = pdp.GetCurrent(2);
         intakeCurrentCounter = intakeCurrentCounter + 1;
 
       }
@@ -279,7 +265,7 @@ void Robot::TeleopPeriodic() {
         //After the 3 frame delay, we check for the electrical current again and store this second value in a variable named
         //intakeCurrentEnd
         //We also reset the counter back to 0 so that this continues to work as long as button 3 is being pressed
-        intakeCurrentEnd = pdp.GetCurrent(4);
+        intakeCurrentEnd = pdp.GetCurrent(2);
         intakeCurrentCounter = 0;
         
         //Now we check for the difference between the electrical current at the start of the 3 frames and at the end of the 3 frames
@@ -294,13 +280,13 @@ void Robot::TeleopPeriodic() {
           /*If both of the above arguments are true, we set the intake motor to zero because it must be stalling
           We also set intakeStalled variable to true so that the whole system does not start over until button 3 is released
           and pressed again*/
-          CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+          CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.25);
           intakeStalled = true;
 
         }
         //If either one of the above arguements are false, it must not be stalling because of an intaked ball so it continues to spin
         //the motor
-        else CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.5);
+        else CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.8);
 
       }
 
@@ -313,26 +299,58 @@ void Robot::TeleopPeriodic() {
   { 
   
     //Spit the ball if button 1 is pressed when button 3 is not being pressed
-    if (Xbox.GetRawButton(1)) CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0.5);
-    else 
-    {
-      
-      CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+    if (Xbox.GetRawButton(1)) {
+      CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 1);
       intakeStalled = false;
+    }
+    else {
+      if (intakeStalled) CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -0.25);
+      else CargoIntakeMotor.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
 
     }
-
   }
 
-  if (RaceWheel.GetRawButton(5)){
-    RightMotors.Set(SquaredWheelInput);
-    LeftMotors.Set(-SquaredWheelInput);
-  } else if(JoyY > 0.02 || JoyY < -0.02){
-    DriveTrain.ArcadeDrive(-SquaredWheelInput, JoyY, true);
-  } else {
-    RightMotors.Set(0); 
-    LeftMotors.Set(0);
-  }
+  //Drive Code for CNS and modified for Axon
+  //Button 5 on the wheel activates point turning
+	if (RaceWheel.GetRawButton(5)) {
+		RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+		RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+		RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+		LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+    LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+    LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, WheelX);
+		Gyro.Reset();
+	} 
+  else {
+    //Code for regular turning
+	  if ((WheelX < -0.01 || WheelX > 0.01) && (JoyY > 0.06 || JoyY < -0.06)) {
+		  RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
+		  RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
+      RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
+		  LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, JoyY +turnFact*(WheelX));
+		  LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  JoyY + turnFact*(WheelX));
+      LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  JoyY + turnFact*(WheelX));
+		  Gyro.Reset();
+	  }
+	  //Code for driving straight
+	  else if ((JoyY > 0.06 || JoyY < -0.06)) {
+		  RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
+		  RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
+      RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
+		  LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, JoyY - correctionAngle);
+		  LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, JoyY - correctionAngle);
+      LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, JoyY - correctionAngle);
+	  } 
+    else {
+	    //Dont spin any drive train motors if the driver is not doing anything
+		  RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+		  RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+		  RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+		  LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+      LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+      LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
+  	}
+	}
 
   //Straightens out bot here when driving straight
   LastSumAngle = sumAngle;
