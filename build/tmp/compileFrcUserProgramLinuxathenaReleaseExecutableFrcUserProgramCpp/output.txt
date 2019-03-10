@@ -1,6 +1,16 @@
 See file:///Users/maximocazares/workspace/Axon/build/tmp/compileFrcUserProgramLinuxathenaReleaseExecutableFrcUserProgramCpp/output.txt for all output for compileFrcUserProgramLinuxathenaReleaseExecutableFrcUserProgramCpp.
 compiling Robot.cpp successful.
+In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:11:0:
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/WPILib.h:14:2: warning: #warning is a GCC extension
+ #warning "WPILib.h is deprecated; include frc/WPILib.h instead"
+  ^~~~~~~
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/WPILib.h:14:2: warning: #warning "WPILib.h is deprecated; include frc/WPILib.h instead" [-Wcpp]
 In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:14:0:
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/Encoder.h:14:2: warning: #warning is a GCC extension
+ #warning "Encoder.h is deprecated; include frc/Encoder.h instead"
+  ^~~~~~~
+/Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/Encoder.h:14:2: warning: #warning "Encoder.h is deprecated; include frc/Encoder.h instead" [-Wcpp]
+In file included from /Users/maximocazares/workspace/Axon/src/main/cpp/Robot.cpp:16:0:
 /Users/maximocazares/workspace/Axon/build/tmp/expandedArchives/wpilibc-cpp-2019.2.1-headers.zip_c5f7002a6c1dfda8aa2899e2594d01fe/TimedRobot.h:14:2: warning: #warning is a GCC extension
  #warning "TimedRobot.h is deprecated; include frc/TimedRobot.h instead"
   ^~~~~~~
