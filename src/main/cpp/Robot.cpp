@@ -15,6 +15,7 @@
 #include <frc/Joystick.h>
 #include <ctre/Phoenix.h>
 #include <frc/ADXRS450_Gyro.h>
+#include <frc/BuiltInAccelerometer.h>
 #include <frc/SpeedControllerGroup.h>
 #include "cameraserver/CameraServer.h"
 #include "NetworkTables/NetworkTable.h"
@@ -36,6 +37,8 @@ frc::ADXRS450_Gyro Gyro{};
 frc::DigitalInput ElevatorLimitBottom{0};
 frc::DigitalInput HatchLimitLeft{1};
 frc::DigitalInput HatchLimitRight{2};
+//Accelerometer
+frc::BuiltInAccelerometer BuiltInAccel;
 // Straightens out the bot
 float signed_square(float x){
   return x * fabsf(x);
@@ -316,6 +319,26 @@ void Robot::RobotPeriodic() {
     }
   }
 
+
+  //YEET button
+  bool yeetpressed = false;
+  bool yeettoggled = false;
+  double yeetspeed = 1;
+  if (JoyAccel1.GetRawButton(10)){
+    if(!yeetpressed){
+      yeetpressed = true;
+      yeettoggled = !yeettoggled;
+    }
+  } else {
+    yeetpressed = false;
+  }
+
+  if(yeettoggled){
+    yeetspeed = 0.5;
+  } else {
+    yeetspeed = 1;
+  }
+
   //Score Button
   if (Xbox.GetRawButton(6)){
     if(!scoreButton){
@@ -466,24 +489,24 @@ void Robot::RobotPeriodic() {
   else {
     //Code for regular turning
     if ((WheelX < -0.01 || WheelX > 0.01) && (JoyY > 0.06 || JoyY < -0.06)) {
-    RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
-    RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
-    RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + turnFact*(WheelX));
-    LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - turnFact*(WheelX));
-    LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  -JoyY - turnFact*(WheelX));
-    LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  -JoyY - turnFact*(WheelX));
+    RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + turnFact*(WheelX));
+    RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + turnFact*(WheelX));
+    RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + turnFact*(WheelX));
+    LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) - turnFact*(WheelX));
+    LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  (-JoyY * yeetspeed) - turnFact*(WheelX));
+    LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput,  (-JoyY * yeetspeed) - turnFact*(WheelX));
     Gyro.Reset();
   }
   //Code for driving straight
   else if ((JoyY > 0.1|| JoyY < -0.1)) {
-    RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
-    RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
-    RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY - correctionAngle);
-    LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + correctionAngle);
-    LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + correctionAngle);
-    LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, -JoyY + correctionAngle);
-  } 
-  else {
+    RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) - correctionAngle);
+    RightMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) - correctionAngle);
+    RightMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) - correctionAngle);
+    LeftMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + correctionAngle);
+    LeftMotorTwo.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + correctionAngle);
+    LeftMotorThree.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, (-JoyY * yeetspeed) + correctionAngle);
+  //Code for yeeting
+  } else {
     if(!beScoring){
       //Dont spin any drive train motors if the driver is not doing anything
       RightMotorOne.Set(ctre::phoenix::motorcontrol::ControlMode::PercentOutput, 0);
