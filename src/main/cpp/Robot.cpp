@@ -28,7 +28,7 @@
 // Declarations
 
 //Digital Inputs / Electrical components 
-
+TalonSRX srx = {0};
 // PDP
 frc::PowerDistributionPanel pdp{0};
 // Gyro
@@ -133,7 +133,7 @@ void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
   frc::SmartDashboard::PutData("Auto Modes", &m_chooser);
-
+  srx.Set (ControlMode::PercentOutput, 0);
   //Intakes
   HatchIntake.Set(false);
   CargoIntake.Set(false);
@@ -164,8 +164,8 @@ void Robot::RobotPeriodic() {
   }
 
   //Gets axis for each controller (Driving/Operating)
-  double JoyY = -JoyAccel1.GetY();
-  double WheelX = RaceWheel.GetX();
+  double JoyY = -JoyAccel1.GetY() * 0.75;
+  double WheelX = RaceWheel.GetX() * 0.9;
   double XboxRightAnalogY = Xbox.GetRawAxis(5);
 
   //Limelight
