@@ -5,7 +5,7 @@
 #include <string>
 #include <sstream>
 #include <Robot.h>
-#include <WPILib.h>
+#include <frc/WPILib.h>
 #include <stdlib.h>
 #include <iostream>
 #include <Encoder.h>
